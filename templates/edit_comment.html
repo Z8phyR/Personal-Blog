@@ -1,0 +1,8 @@
+<form
+  method="POST"
+  action="{{ url_for('update_comment', comment_id=comment.id) }}"
+>
+  {{ form.hidden_tag() }} {{ form.content.label }}<br />
+  {{ form.content(rows=10) }}<br />
+  {{ form.submit() }}
+</form>

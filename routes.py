@@ -114,3 +114,44 @@ def delete_post(post_id):
     db.session.commit()
     flash('Your post has been deleted!', 'success')
     return redirect(url_for('home'))
+
+
+@app.route('/comment/<int:comment_id>/update', methods=['GET', 'POST'])
+@login_required
+def update_comment(comment_id):
+    comment = Comment.query.get_or_404(comment_id)
+
+    # Ensure the comment has a user linked to it
+    if not comment.user:
+        abort(404)
+
+    # Ensure the current user is the author of the comment
+    if comment.user != current_user:
+        abort(403)
+
+    form = CommentForm()
+    if form.validate_on_submit():
+        comment.content = form.content.data
+        db.session.commit()
+        flash('Your comment has been updated!', 'success')
+        return redirect(url_for('post', post_id=comment.post_id))
+    elif request.method == 'GET':
+        form.content.data = comment.content
+    return render_template('edit_comment.html', title='Update Comment', form=form, comment=comment)
+
+
+@app.route('/comment/<int:comment_id>/delete', methods=['POST'])
+@login_required
+def delete_comment(comment_id):
+    comment = Comment.query.get_or_404(comment_id)
+    # Ensure the comment has a user linked to it
+    if not comment.user:
+        abort(404)
+
+    # # Ensure the current user is the author of the comment or the owner of the post
+    if comment.user != current_user and comment.post.author != current_user:
+        abort(403)
+    db.session.delete(comment)
+    db.session.commit()
+    flash('Your comment has been deleted!', 'success')
+    return redirect(url_for('post', post_id=comment.post_id))
