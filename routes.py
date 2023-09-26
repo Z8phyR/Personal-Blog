@@ -1,8 +1,8 @@
 from flask import render_template, redirect, url_for, flash, request, abort
 from flask_login import login_user, logout_user, login_required, current_user
 from myblog import app, db
-from myblog.models import User, Post
-from myblog.forms import RegistrationForm, LoginForm, BlogPostForm
+from myblog.models import User, Post, Comment
+from myblog.forms import RegistrationForm, LoginForm, BlogPostForm, CommentForm
 
 
 @app.route('/')
@@ -63,10 +63,25 @@ def new_post():
     return render_template('create_post.html', form=form)
 
 
-@app.route('/post/<int:post_id>')
+@app.route('/post/<int:post_id>', methods=['GET', 'POST'])
+# Assuming you want only logged-in users to be able to comment.
+@login_required
 def post(post_id):
     post = Post.query.get_or_404(post_id)
-    return render_template('post.html', post=post)
+    form = CommentForm()
+
+    if form.validate_on_submit():
+        comment = Comment(content=form.content.data,
+                          user_id=current_user.id, post_id=post.id)
+        db.session.add(comment)
+        db.session.commit()
+        flash('Your comment has been posted!', 'success')
+        return redirect(url_for('post', post_id=post.id))
+
+    comments = Comment.query.filter_by(post_id=post.id).order_by(
+        Comment.timestamp.desc()).all()  # Fetch comments for this post.
+
+    return render_template('post.html', post=post, form=form, comments=comments)
 
 
 @app.route('/post/<int:post_id>/update', methods=['GET', 'POST'])

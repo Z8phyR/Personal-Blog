@@ -25,3 +25,8 @@ class BlogPostForm(FlaskForm):
     # You can further improve how tags are inputted and processed.
     tags = StringField('Tags')
     submit = SubmitField('Post')
+
+
+class CommentForm(FlaskForm):
+    content = TextAreaField('Comment', validators=[DataRequired()])
+    submit = SubmitField('Post Comment')
