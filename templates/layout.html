@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Blog's Title</title>
+    <!-- You can include CSS links or JS scripts here if needed -->
+  </head>
+  <body>
+    <header>
+      <h1>Your Blog's Header</h1>
+    </header>
+
+    <nav>
+      <!-- Navigation links can go here -->
+    </nav>
+
+    <main>
+      {% block content %}
+      <!-- Content from child templates will be injected here -->
+      {% endblock %}
+    </main>
+
+    <footer>
+      <p>Your Blog's Footer</p>
+    </footer>
+  </body>
+</html>
