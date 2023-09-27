@@ -1,4 +1,6 @@
+{% extends "layout.html" %} {% block content %}
 <form method="POST" action="{{ url_for('update_post', post_id=post.id) }}">
   {{ form.hidden_tag() }} {{ form.title.label }} {{ form.title(size=30) }} {{
   form.content.label }} {{ form.content(rows=10) }} {{ form.submit() }}
 </form>
+{% endblock %}

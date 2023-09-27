@@ -1,4 +1,6 @@
+{% extends "layout.html" %} {% block content %}
 <form method="POST" action="{{ url_for('new_post') }}">
   {{ form.hidden_tag() }} {{ form.title.label }} {{ form.title() }} {{
   form.content.label }} {{ form.content() }} {{ form.submit() }}
 </form>
+{% endblock %}

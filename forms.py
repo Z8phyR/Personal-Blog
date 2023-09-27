@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
-from wtforms.validators import DataRequired, EqualTo, Email
+from wtforms.validators import DataRequired, EqualTo, Email, Length
+from flask_wtf.file import FileAllowed, FileField
 
 
 class RegistrationForm(FlaskForm):
@@ -30,3 +31,10 @@ class BlogPostForm(FlaskForm):
 class CommentForm(FlaskForm):
     content = TextAreaField('Comment', validators=[DataRequired()])
     submit = SubmitField('Post Comment')
+
+
+class UpdateProfileForm(FlaskForm):
+    bio = TextAreaField('Bio', validators=[Length(max=500)])
+    profile_picture = FileField('Profile Picture', validators=[
+                                FileAllowed(['jpg', 'png'])])
+    submit = SubmitField('Update')

@@ -2,7 +2,8 @@ from flask import render_template, redirect, url_for, flash, request, abort
 from flask_login import login_user, logout_user, login_required, current_user
 from myblog import app, db
 from myblog.models import User, Post, Comment
-from myblog.forms import RegistrationForm, LoginForm, BlogPostForm, CommentForm
+from myblog.forms import RegistrationForm, LoginForm, BlogPostForm, CommentForm, UpdateProfileForm
+from myblog.util import save_picture
 
 
 @app.route('/')
@@ -155,3 +156,30 @@ def delete_comment(comment_id):
     db.session.commit()
     flash('Your comment has been deleted!', 'success')
     return redirect(url_for('post', post_id=comment.post_id))
+
+
+@app.route('/profile/<username>')
+def profile(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    return render_template('profile.html', user=user)
+
+
+@app.route('/profile/<username>/update', methods=['GET', 'POST'])
+@login_required
+def update_profile(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    if user != current_user:
+        abort(403)
+    form = UpdateProfileForm()
+    if form.validate_on_submit():
+        # Handle profile picture upload and saving bio
+        if form.profile_picture.data:
+            profile_picture = save_picture(form.profile_picture.data)
+            current_user.profile_picture = profile_picture
+        current_user.bio = form.bio.data
+        db.session.commit()
+        flash('Your profile has been updated!', 'success')
+        return redirect(url_for('profile', username=current_user.username))
+    elif request.method == 'GET':
+        form.bio.data = current_user.bio
+    return render_template('update_profile.html', form=form)

@@ -1,3 +1,4 @@
+{% extends "layout.html" %} {% block content %}
 <form
   method="POST"
   action="{{ url_for('update_comment', comment_id=comment.id) }}"
@@ -6,3 +7,4 @@
   {{ form.content(rows=10) }}<br />
   {{ form.submit() }}
 </form>
+{% endblock %} ```

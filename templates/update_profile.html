@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h1>Update Profile</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        
+        <label for="profile_picture">Profile Picture</label>
+        {{ form.profile_picture() }}
+        
+        <label for="bio">Bio</label>
+        {{ form.bio() }}
+        
+        {{ form.submit() }}
+    </form>
+{% endblock %}

@@ -8,10 +8,16 @@
   </head>
   <body>
     <header>
-      <h1>Your Blog's Header</h1>
+      <h1>The Journey of a Thousand Miles - Blog</h1>
     </header>
 
     <nav>
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('about') }}">About</a>
+      <a href="{{ url_for('new_post') }}">Create a New Post</a>
+      <a href="{{ url_for('profile', username=current_user.username) }}"
+        >Profile</a
+      >
       <!-- Navigation links can go here -->
     </nav>
 
@@ -22,7 +28,7 @@
     </main>
 
     <footer>
-      <p>Your Blog's Footer</p>
+      <p>Copyright Donovan Townes aka Z8phyR</p>
     </footer>
   </body>
 </html>

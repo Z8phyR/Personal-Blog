@@ -1,0 +1,22 @@
+{% extends 'layout.html' %} {% block content %}
+<h1>{{ current_user.username }}'s Profile</h1>
+
+{% if current_user.profile_picture %}
+<img
+  src="{{ url_for('static', filename='profile_pics/' + current_user.profile_picture) }}"
+  alt="Profile Picture"
+/>
+{% else %}
+<img
+  src="{{ url_for('static', filename='profile_pics/default.png') }}"
+  alt="Default Profile Picture"
+/>
+{% endif %}
+
+<p>Bio: {{ current_user.bio }}</p>
+
+<!-- Link to Update Profile Page -->
+<a href="{{ url_for('update_profile', username=current_user.username) }}"
+  >Edit Profile</a
+>
+{% endblock %}
