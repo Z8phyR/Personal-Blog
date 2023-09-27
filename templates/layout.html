@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Your Blog's Title</title>
+    <title>Abby's Bunny Blog</title>
     <!-- You can include CSS links or JS scripts here if needed -->
   </head>
   <body>
@@ -18,7 +18,12 @@
       <a href="{{ url_for('profile', username=current_user.username) }}"
         >Profile</a
       >
-      <!-- Navigation links can go here -->
+      {% if current_user.is_authenticated %}
+      <a href="{{ url_for('logout') }}">Logout</a>
+      {% else %}
+      <a href="{{ url_for('login') }}">Login</a>
+      <a href="{{ url_for('register') }}">Register</a>
+      {% endif %}
     </nav>
 
     <main>
