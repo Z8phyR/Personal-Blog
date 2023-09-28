@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from flask_login import LoginManager
 from flask_migrate import Migrate
+from flask_bootstrap import Bootstrap
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
@@ -14,6 +15,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+bootstrap = Bootstrap(app)
 
 login_manager = LoginManager(app)
 # Specifies the name of the view to redirect to when a user needs to log in.

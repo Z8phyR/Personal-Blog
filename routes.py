@@ -2,8 +2,13 @@ from flask import render_template, redirect, url_for, flash, request, abort
 from flask_login import login_user, logout_user, login_required, current_user
 from myblog import app, db
 from myblog.models import User, Post, Comment
-from myblog.forms import RegistrationForm, LoginForm, BlogPostForm, CommentForm, UpdateProfileForm
+from myblog.forms import RegistrationForm, LoginForm, BlogPostForm, CommentForm, UpdateProfileForm, SearchForm
 from myblog.util import save_picture
+
+
+@app.context_processor
+def inject_search_form():
+    return {'search_form': SearchForm()}
 
 
 @app.route('/')
@@ -183,3 +188,10 @@ def update_profile(username):
     elif request.method == 'GET':
         form.bio.data = current_user.bio
     return render_template('update_profile.html', form=form)
+
+
+@app.route('/search')
+def search():
+    query = request.args.get('query')
+    posts = Post.query.filter(Post.content.like(f'%{query}%')).all()
+    return render_template('search_results.html', posts=posts)

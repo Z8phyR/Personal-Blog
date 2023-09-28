@@ -38,3 +38,8 @@ class UpdateProfileForm(FlaskForm):
     profile_picture = FileField('Profile Picture', validators=[
                                 FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Update')
+
+
+class SearchForm(FlaskForm):
+    query = StringField('Search', validators=[DataRequired()])
+    submit = SubmitField('Search')

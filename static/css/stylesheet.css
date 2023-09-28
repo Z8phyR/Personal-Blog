@@ -1,0 +1,131 @@
+/* Reset some default margins and padding */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+li,
+a {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  color: #333;
+  margin: 20px;
+}
+
+header,
+nav,
+main,
+footer {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header {
+  text-align: center;
+}
+
+header h1 {
+  font-size: 2.5em;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+nav {
+  background: #333;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: #fff;
+  padding: 10px 20px;
+  display: inline-block;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+nav a:hover {
+  background: #555;
+}
+
+main {
+  padding: 20px 0;
+}
+
+footer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+p,
+li {
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  margin-left: 20px;
+}
+
+a {
+  color: #0077cc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #009966;
+  background-color: #0056b3; /* Darken the color on hover */
+}
+
+body {
+  font-family: Arial, sans-serif;
+  padding: 0 15%; /* This adds horizontal padding. Adjust the percentage as needed */
+  text-align: center; /* Centers the text */
+}
+
+ul {
+  list-style-type: none; /* Removes bullet points */
+  padding: 0; /* Removes default padding */
+}
+
+h1,
+h2,
+p {
+  padding: 10px 0; /* Adds vertical spacing between elements */
+}
+
+a {
+  display: inline-block; /* Allows us to add padding */
+  padding: 5px 10px; /* Add padding around the link text */
+  margin: 5px; /* Add some space around each link */
+  text-decoration: none; /* Removes underline from links */
+  background-color: #2bcd7e; /* Bootstrap primary color */
+  color: white; /* Text color */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s; /* Smooth transition effect */
+}
+
+form {
+  padding: 10px 0; /* Adds vertical spacing between elements */
+  display: inline-block; /* To display it beside other inline elements like the Edit link */
+}
